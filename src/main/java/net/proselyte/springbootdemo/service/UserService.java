@@ -5,6 +5,7 @@ import net.proselyte.springbootdemo.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.List;
 
 @Service
@@ -17,18 +18,21 @@ public class UserService {
         this.userRepository = userRepository;
     }
 
+    @Transactional
     public User findById(Long id){
         return userRepository.getOne(id);
     }
 
+    @Transactional
     public List<User> findAll(){
         return userRepository.findAll();
     }
 
+    @Transactional
     public User saveUser(User user){
         return userRepository.save(user);
     }
-
+    @Transactional
     public void deleteById(Long id){
         userRepository.deleteById(id);
     }

@@ -5,9 +5,7 @@ import net.proselyte.springbootdemo.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -39,8 +37,8 @@ public class UserController {
         return "redirect:/users";
     }
 
-    @GetMapping("user-delete/{id}")
-    public String deleteUser(@PathVariable("id") Long id){
+    @GetMapping(value = "/user-delete/{id}")
+    public String delete(@PathVariable("id") long id) {
         userService.deleteById(id);
         return "redirect:/users";
     }
