@@ -1,25 +1,21 @@
-
-
 package net.proselyte.springbootdemo.model;
 
 import lombok.Data;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Data
 @Entity
 @Table(name = "users")
 public class User {
     @Id
+    @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @Column(name = "name")
-    private String firstName;
+    private String name;
     @Column(name = "surname")
-    private String lastName;
+    private String surname;
+    @Column(name = "age")
+    private Byte age;
 }

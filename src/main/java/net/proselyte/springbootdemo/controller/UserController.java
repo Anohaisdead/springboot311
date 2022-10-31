@@ -10,49 +10,49 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @Controller
+@RequestMapping("/users")
 public class UserController {
-
     private final UserService userService;
 
-    @Autowired
+    @Autowired()
     public UserController(UserService userService) {
         this.userService = userService;
     }
 
-    @GetMapping("/users")
-    public String findAll(Model model){
-        List<User> users = userService.findAll();
-        model.addAttribute("users", users);
-        return "user-list";
+    @GetMapping()
+    public String allUsers(Model model) {
+        List<User> user = userService.allUsers();
+        model.addAttribute("userList", user);
+        return "users";
     }
 
-    @GetMapping("/user-create")
-    public String createUserForm(User user){
-        return "user-create";
+    @GetMapping("/edit/{id}")
+    public String editPage(@PathVariable("id") Long id, Model model) {
+        model.addAttribute("user", userService.getById(id));
+        return "editPage";
     }
 
-    @PostMapping("/user-create")
-    public String createUser(User user){
-        userService.saveUser(user);
+    @PostMapping("/edit")
+    public String editUser(@ModelAttribute("user") User user) {
+        userService.edit(user);
         return "redirect:/users";
     }
 
-    @GetMapping(value = "/user-delete/{id}")
-    public String delete(@PathVariable("id") long id) {
-        userService.deleteById(id);
+    @GetMapping("/add")
+    public String addPage(Model model) {
+        model.addAttribute("user", new User());
+        return "new";
+    }
+
+    @PostMapping("/add")
+    public String addUser(@ModelAttribute("user") User user) {
+        userService.add(user);
         return "redirect:/users";
     }
 
-    @GetMapping("/user-update/{id}")
-    public String updateUserForm(@PathVariable("id") Long id, Model model){
-        User user = userService.findById(id);
-        model.addAttribute("user", user);
-        return "user-update";
-    }
-
-    @PostMapping("/user-update")
-    public String updateUser(User user){
-        userService.saveUser(user);
+    @PostMapping("/{id}")
+    public String deleteUser(@PathVariable("id") Long id) {
+        userService.delete(id);
         return "redirect:/users";
     }
 }
