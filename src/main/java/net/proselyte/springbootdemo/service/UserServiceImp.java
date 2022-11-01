@@ -18,7 +18,6 @@ public class UserServiceImp implements UserService {
     public UserServiceImp(UserRepository userRepository) {
         this.userRepository = userRepository;
     }
-    @Transactional
     public List<User> allUsers() {
         return userRepository.findAll();
     }
@@ -34,7 +33,7 @@ public class UserServiceImp implements UserService {
     public void edit(User user) {
         userRepository.saveAndFlush(user);
     }
-    @Transactional
+
     public User getById(Long id) {
         return userRepository.findById(id).orElse(null);
     }
